@@ -29,17 +29,6 @@ router.post('/add/:work', async (req, res) => {
     }
 });
 
-// router.post("/add", async(req,res) => {
-//     const work = req.body.work;
-//     const TNew = new tasks({ work });
-//     console.log(work);
-//     try {
-//         const savedTask = await TNew.save();
-//         res.status(200).json(savedTask);
-//     } catch(err) {
-//         res.status(500).json(err);
-//     }
-// });
 
 // router.post('/add', (req,res) => {
 //     const job = req.body.job;   
@@ -54,26 +43,38 @@ router.post('/add/:work', async (req, res) => {
 // })
 
 
-router.delete('/delete/:id', async (req, res) => {
-    try {
-        const todoz = await tasks.findById(req.params.id);
+// router.delete('/delete/:id', async (req, res) => {
+//     try {
+//         const todoz = await tasks.findById(req.params.id);
        
-        if (todoz._id === req.body.id) {
-            console.log(todoz);
-          await todoz.deleteOne();
-          res.status(200).json("deleted");
-        } 
-      } catch (err) {
-        res.status(500).json(err);
-      }
-})
+//         if (todoz._id === req.body.id) {
+//             console.log(todoz);
+//           await todoz.deleteOne();
+//           res.status(200).json("deleted");
+//         } 
+//       } catch (err) {
+//         res.status(500).json(err);
+//       }
+// })
+
+router.delete('/delete/:id' ,function(req,res,next){
+    tasks.findByIdAndRemove({ _id: req.params.id}).then((tasks) => {
+  
+            res.send(tasks);
+   
+        
+    });
+   
+});
 
 router.put('/update/:id' ,function(req,res,next){
     // here we r taking id from db and update it through body name(front)
-    tasks.findByIdAndUpdate({ _id: req.params.id}, req.body).then(() => {   
-        res.status(200).json("updated");
+    tasks.findByIdAndUpdate({ _id: req.params.id}, req.body).then((tasks) => {   
+       
+            res.send(tasks);
+       
     });
-    res.send({type:'PUT'});
+  
 });
 
 // router.put("/update/:id", async (req, res) => {
