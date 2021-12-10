@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const tasks = require('../modal/taskModal');
 
-router.get('/', (req, res) => {
+router.get('/all', (req, res) => {
     var mytask;
     tasks.find({}, (err, data) => {
         if (err) {

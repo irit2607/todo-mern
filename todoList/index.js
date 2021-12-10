@@ -1,14 +1,16 @@
 const express = require('express');
 const route = require('./controllers/routes');
 const mongoose = require('mongoose');
+var cors = require('cors');
 const app = express();
+app.use(cors())
 const url = require('./config/mongoUrl');
 
 app.use(express.urlencoded({ extended: true},),);
 
 app.use(route);
-app.set('view engine','ejs');
-app.set('views', __dirname + '/views');
+// app.set('view engine','ejs');
+// app.set('views', __dirname + '/views');
 //connect to mongo
 mongoose.connect(url, { useNewUrlParser :true, useUnifiedTopology :true, useFindAndModify: false, useCreateIndex : true, }).then(() => console.log("Connected !"),);
 

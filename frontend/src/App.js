@@ -1,4 +1,4 @@
-import Form from './component/TodoForm'
+import Form from './component/Todos'
 
 function App() {
   return (
