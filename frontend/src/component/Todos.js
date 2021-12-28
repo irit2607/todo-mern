@@ -19,19 +19,45 @@ const Todos = () => {
     const item = async () => {
         const result = await axios.get("http://localhost:8000/all");
         // setData(result.data.data);       
-         xyz=result.data.data;
-         setData(xyz);
+        xyz = result.data.data;
+        setData(xyz);
     }
-const Iii = () =>{
-    return (
-        <>
-          {data.map((value) => {
-            return <h3>{value.work}</h3>
-          })}
-        </>
-      )
-    
-}
+
+    const onDelete = async(id) => {
+        console.log(id)
+        const del = await axios.delete(`http://localhost:8000/delete/${id}`)
+        // const newList = data.filter((item) => item.id !== id);
+         item();
+        // setData(newList);
+        console.log(del)
+    }
+
+//    useEffect(()=>{
+//     async function onDelete(id) {
+//         await axios.delete(`http://localhost:8000/delete/${id}`);
+        
+//     }
+//     onDelete();
+//    })
+
+
+    const Display_data = () => {
+        return (
+            <>
+                {data.map((value) => {
+                    return (
+                        <>
+                            <ul>
+                                <li key={value._id}> {value.work}</li>
+                                <button className="btn btn-sm btn-danger" onClick={() => onDelete(value._id)}>Delete</button>
+                            </ul>
+                        </>
+                    )
+                })}
+            </>
+        )
+
+    }
     return (
         <>
             <form onSubmit={submitHandler}>
@@ -44,10 +70,20 @@ const Iii = () =>{
                 })
 
             } */}
-        <h1>List</h1>
-        <Iii/>
+            <h1>List</h1>
+            <Display_data />
         </>
     )
 }
 
 export default Todos
+
+
+
+// console.log("I am ondelete", todo);
+        // console.log(data)
+        // // const d = this.state.data.filter(i => i.id !== todo.id)
+        // setData(data.filter((e) => {
+        //   return e !== todo;
+        // }));
+        // this.setState({data})
