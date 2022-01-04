@@ -5,6 +5,7 @@ const Todos = () => {
         item();
     }, []);
     const [title, setTitle] = useState("");
+    const [updated, setUpdated] = useState("");
     const [data, setData] = useState([]);
     var xyz = [];
 
@@ -23,22 +24,22 @@ const Todos = () => {
         setData(xyz);
     }
 
-    const onDelete = async(id) => {
+    const onDelete = async (id) => {
         console.log(id)
         const del = await axios.delete(`http://localhost:8000/delete/${id}`)
         // const newList = data.filter((item) => item.id !== id);
-         item();
+        item();
         // setData(newList);
         console.log(del)
     }
 
-//    useEffect(()=>{
-//     async function onDelete(id) {
-//         await axios.delete(`http://localhost:8000/delete/${id}`);
-        
-//     }
-//     onDelete();
-//    })
+    const onUpdate = async (id) => {
+        console.log(id)
+        const up = await axios.put(`http://localhost:8000/update/${id}`)
+
+        item();
+        console.log(up);
+    }
 
 
     const Display_data = () => {
@@ -49,11 +50,16 @@ const Todos = () => {
                         <>
                             <ul>
                                 <li key={value._id}> {value.work}</li>
-                                <button className="btn btn-sm btn-danger" onClick={() => onDelete(value._id)}>Delete</button>
+                                <button className="btn btn-sm btn-danger" onClick={() => onDelete(value._id)}>Delete</button><br/><br/>
+                                <input type="text" name="tasked" id="task" placeholder="enter" value={updated} onChange={(e) => setUpdated(e.target.value)}/>
+                                <button className="btn btn-sm btn-danger" onClick={() => onUpdate(value._id)}>Update</button>
                             </ul>
                         </>
                     )
                 })}
+
+                
+              
             </>
         )
 
@@ -78,12 +84,3 @@ const Todos = () => {
 
 export default Todos
 
-
-
-// console.log("I am ondelete", todo);
-        // console.log(data)
-        // // const d = this.state.data.filter(i => i.id !== todo.id)
-        // setData(data.filter((e) => {
-        //   return e !== todo;
-        // }));
-        // this.setState({data})
