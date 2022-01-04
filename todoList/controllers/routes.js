@@ -40,45 +40,6 @@ router.delete('/delete/:id', function (req, res, next) {
 
 });
 
-// router.put('/update/:id' ,function(req,res,next){
-//     // here we r taking id from db and update it through body name(front)
-//     tasks.findByIdAndUpdate({ _id: req.params.id}, req.body).then((tasks) => {   
-
-//             res.send(tasks);
-
-//     });
-
-// });
-
-// router.put('/update/:id/:sk', (req, res, next) => {
-//     tasks.findByIdAndUpdate({_id: req.params.id}, req.params.sk).then((tasks) => {         
-//             res.send(tasks);      
-//             console.log(tasks)   
-//     });
-// });
-
-// router.put('/update/:id',update.tasks)
-
-// function update(req,res,next){
-//     tasks.findByIdAndUpdate(req.params.id,req.body, (err,tasks)=>{
-//       if (err) {
-//         return res.status(500).send({error: "Problem with Updating the   Employee recored "})
-//       };
-//       res.send({success: "Updation successfull"});
-//     })
-//   }
-
-// router.put('/update/:id/:work', async(req, res, next) => {
-//     await tasks.findById({_id: req.params.id}).then(() => {
-//         console.log(req.query);
-//         tasks.findOne({_id: req.params.id}).then((tasks) => {
-//             console.log(req.query);
-//             console.log(tasks);
-//             res.send(tasks);
-//         });
-//     });
-// });
-
 router.put("/update/:id/:work", async (req, res) => {
   try {
     console.log(req.params.id);
@@ -96,4 +57,17 @@ router.put("/update/:id/:work", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+// router.put('/update/:id/:work', async(req, res, next) => {
+//     await tasks.findById({_id: req.params.id}).then(() => {
+//         console.log(req.query);
+//         tasks.findOne({_id: req.params.id}).then((tasks) => {
+//             console.log(req.query);
+//             console.log(tasks);
+//             res.send(tasks);
+//         });
+//     });
+// });
+
+
 module.exports = router;
