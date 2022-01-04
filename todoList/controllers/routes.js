@@ -83,14 +83,14 @@ router.put("/update/:id/:work", async (req, res) => {
   try {
     console.log(req.params.id);
     const post = await tasks.findById(req.params.id);
-    console.log(post);
-    if (post.id === req.params.id) {
+        if (post.id === req.params.id) {
       await post.updateOne({
         $set: {
           work: req.params.work
         }
       });
-      res.send(post);
+      const post1 = await tasks.findById(req.params.id);
+      res.send(post1);
     }
   } catch (err) {
     res.status(500).json(err);

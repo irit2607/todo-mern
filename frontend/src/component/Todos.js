@@ -32,12 +32,20 @@ const Todos = () => {
         // setData(newList);
         console.log(del)
     }
+    var data1 = {
+        work: "",
+    }
 
-    const onUpdate = async (id) => {
-        console.log(id)
-        const up = await axios.put(`http://localhost:8000/update/${id}`)
+    const onInputChange = e => {
+        data1 = { ...data1, [e.target.name]: e.target.value }
+        console.log(data1);
+    }
 
-        item();
+    const onUpdate = async (id, e) => {
+        console.log(id);
+        console.log(e.target.work);
+        const up = await axios.put(`http://localhost:8000/update/${id}/${data1.work}`)
+        // item();
         console.log(up);
     }
 
@@ -45,29 +53,26 @@ const Todos = () => {
     const Display_data = () => {
         return (
             <>
-                {data.map((value) => {
+                {data.map((ii) => {
                     return (
                         <>
                             <ul>
-                                <li key={value._id}> {value.work}</li>
-                                <button className="btn btn-sm btn-danger" onClick={() => onDelete(value._id)}>Delete</button><br/><br/>
-                                <input type="text" name="tasked" id="task" placeholder="enter" value={updated} onChange={(e) => setUpdated(e.target.value)}/>
-                                <button className="btn btn-sm btn-danger" onClick={() => onUpdate(value._id)}>Update</button>
+                                <li key={ii._id}> {ii.work}</li>
+                                <button className="btn btn-sm btn-danger" onClick={() => onDelete(ii._id)}>Delete</button><br /><br />
+                                <form onSubmit={(e) => onUpdate(ii._id, e)}><input type="text" name="work" placeholder="enter" onChange={e => onInputChange(e)} defaultValue={ii.work} />
+                                    <button className="btn btn-sm btn-danger">Update</button></form>
+
                             </ul>
                         </>
                     )
                 })}
-
-                
-              
             </>
         )
-
     }
     return (
         <>
             <form onSubmit={submitHandler}>
-                <input type="text" name="tasked" id="task" placeholder="enter" value={title} onChange={(e) => setTitle(e.target.value)} />
+                <input type="text" name="tasked" id="task" placeholder="enter" ii={title} onChange={(e) => setTitle(e.target.ii)} />
                 <button type="submit" className="btn btn-primary mb-3">add</button>
             </form>
             {/* {
